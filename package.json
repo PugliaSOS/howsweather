@@ -1,0 +1,26 @@
+{
+  "name": "howsweather",
+  "version": "0.1.0",
+  "description": "A simple CLI to visualize weather.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sparetimeprojects/howsweather.git"
+  },
+  "keywords": [
+    "console",
+    "cli",
+    "weather",
+    "weather",
+    "cli"
+  ],
+  "author": "Dom Corvasce",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/sparetimeprojects/howsweather/issues"
+  },
+  "homepage": "https://github.com/sparetimeprojects/howsweather#readme"
+}
