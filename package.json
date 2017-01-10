@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/sparetimeprojects/howsweather.git"
   },
+  "bin": {
+    "howsweather": "bin/howsweather.js"
+  },
   "keywords": [
     "console",
     "cli",
