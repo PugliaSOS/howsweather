@@ -2,7 +2,9 @@
 // Copyright (c) 2017 Dom Corvasce
 // Licensed under terms of GNU/GPL ver3.
 'use strict';
-var weather = require('./src/openweatherapi.js');
+
+let config = require('./src/configuration.js');
+let weather = require('./src/openweatherapi.js');
 
 console.log('howsweather | visualize weather, from console');
 

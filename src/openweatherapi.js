@@ -1,6 +1,6 @@
 // Access to weather stats using OpenWeatherMap APIs.
 'use strict';
-var http = require('http');
+let http = require('http');
 
 module.exports = {
     API_ENDPOINT: 'http://api.openweathermap.org/data/2.5/weather?q={city}&apikey={api}',
