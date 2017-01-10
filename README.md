@@ -23,6 +23,17 @@ So open your favourite text editor and type:
 You can get an API key at [OpenWeatherMap](https://openweathermap.org/api).
 
 Now you're ready to use howsweather.
+### See weather stats
+
+If you want to see weather for a specific city:
+```shell
+howsweather "New York"
+```
+
+Or for the default one:
+```shell
+howsweather
+```
 
 ## License
 
