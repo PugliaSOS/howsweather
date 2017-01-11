@@ -7,6 +7,13 @@ This is just an experiment I took in order to practice with
 JavaScript and Node.js environment.
 
 ## Getting Started
+
+### How to install
+
+Make sure you have NodeJS and NPM installed on your pc, then run:
+
+    npm install howsweather -g
+
 ### Configure the necessary
 
 In order to work, **howsweather** reads configuration options from a 
