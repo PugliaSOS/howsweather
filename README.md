@@ -1,15 +1,15 @@
 # howsweather
-A simple JS script for display weather at terminal
+A simple JS script that displays weather on terminal
 
 ## Preface
 
-This is just an experiment I took in order to make practice with 
+This is just an experiment I took in order to practice with 
 JavaScript and Node.js environment.
 
 ## Getting Started
 ### Configure the necessary
 
-In order to work, **howsweather** read configuration options by a 
+In order to work, **howsweather** reads configuration options from a 
 JSON file `.howsweather` in your `$HOME` directory.
 
 So open your favourite text editor and type:
