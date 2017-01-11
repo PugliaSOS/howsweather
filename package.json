@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sparetimeprojects/howsweather.git"
+    "url": "git+https://github.com/PugliaSOS/howsweather.git"
   },
   "bin": {
     "howsweather": "bin/howsweather.js"
