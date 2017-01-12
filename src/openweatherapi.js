@@ -25,13 +25,19 @@ module.exports = {
 
     // Parse weather retrieving only the necessary information.
     parseWeather: function (data) {
-        data =  JSON.parse(data);
+        try {
+            data =  JSON.parse(data);
 
-        let weatherStatus = data.weather[0].main;
-        let temp = {
-            min: module.exports.kelvinToCelsius(data.main.temp_min),
-            max: module.exports.kelvinToCelsius(data.main.temp_max)
-        };
+            var weatherStatus = data.weather[0].main;
+            var temp = {
+                min: module.exports.kelvinToCelsius(data.main.temp_min),
+                max: module.exports.kelvinToCelsius(data.main.temp_max)
+            };
+        } catch(error) {
+            console.log('Unable to fetch weather.\n' +
+                        'Check your configuration file or your API key.');
+            process.exit(1);
+        }
 
         console.log(`${temp.min}°C - ${temp.max}°C | ${weatherStatus}`);
         return;
