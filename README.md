@@ -6,13 +6,15 @@ A simple JS script that displays weather on terminal
 This is just an experiment I took in order to practice with 
 JavaScript and Node.js environment.
 
+## Installation
+
+Make sure you've Node.js and `npm` installed on your machine:
+```shell
+npm install howsweather -g
+```
+
 ## Getting Started
-
-### How to install
-
-Make sure you have NodeJS and NPM installed on your pc, then run:
-
-    npm install howsweather -g
+![Screenshot](http://i.imgur.com/UG40JgX.png "Screenshot")
 
 ### Configure the necessary
 
@@ -27,9 +29,10 @@ So open your favourite text editor and type:
 }
 ```
 
+If you don't specify a city, it'll find your location automatically.
+
 You can get an API key at [OpenWeatherMap](https://openweathermap.org/api).
 
-Now you're ready to use howsweather.
 ### See weather stats
 
 If you want to see weather for a specific city:
