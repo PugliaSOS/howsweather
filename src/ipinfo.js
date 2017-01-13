@@ -35,3 +35,5 @@ function IPInfo() {
 
     return { get, getCoords };
 }
+
+module.exports = { ipinfo: new IPInfo() };
