@@ -33,7 +33,7 @@ function IPInfo() {
         return coords;
     }
 
-    return { get, getCoords };
+    return { get: get, getCoords: getCoords };
 }
 
 module.exports = { ipinfo: new IPInfo() };
