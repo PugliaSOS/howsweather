@@ -39,7 +39,7 @@ module.exports = {
             process.exit(1);
         }
 
-        console.log(`${temp.min}°C - ${temp.max}°C | ${weatherStatus}`);
+        console.log(`Min: ${temp.min}°C, Max: ${temp.max}°C | ${weatherStatus}`);
         return;
     },
 
