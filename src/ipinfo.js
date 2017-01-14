@@ -18,14 +18,15 @@ function IPInfo() {
     function get() {
         return new Promise(function getData(resolve, reject) {
             http.get(ENDPOINT, function fetchResponse(response) {
-                response.on('data', parseData);
-                resolve();
+                response.on('data', parseData.bind(this, resolve));
             });
         });
     }
 
-    function parseData(data) {
+    function parseData(resolve, data) {
         coords = JSON.parse(data);
+        resolve();
+
         return;
     }
 
