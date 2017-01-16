@@ -2,10 +2,13 @@
 'use strict';
 
 let config = require('./../src/configuration.js');
-let weather = require('./../src/openweatherapi.js');
 let ipinfo = require('./../src/ipinfo.js');
 
-weather.API_KEY = config.options.api_key;
+let weather = require('./../src/openweatherapi.js');
+
+weather.setAPI(config.options.api_key);
+weather.setScale(config.options.scale || 'K');
+
 let target_city = config.options.city || null;
 
 console.log('howsweather | visualize weather, from console');
