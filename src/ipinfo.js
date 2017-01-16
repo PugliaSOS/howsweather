@@ -3,7 +3,6 @@ var http = require('http');
 
 function IPInfo() {
     var ENDPOINT = 'http://ipinfo.io';
-    var coords;
 
     /*
      * Retrieve location's data and istantiate a new promise which
@@ -24,17 +23,13 @@ function IPInfo() {
     }
 
     function parseData(resolve, data) {
-        coords = JSON.parse(data);
-        resolve();
+        data = JSON.parse(data);
+        resolve(data);
 
         return;
     }
 
-    function getCoords() {
-        return coords;
-    }
-
-    return { get: get, getCoords: getCoords };
+    return { get: get };
 }
 
 module.exports = { ipinfo: new IPInfo() };

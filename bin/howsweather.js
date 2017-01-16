@@ -16,8 +16,8 @@ console.log('howsweather | visualize weather, from console');
 if (process.argv.length < 3 && target_city === null) {
     console.log('Retrieving your location by your IP address..');
 
-    ipinfo.get().then(function returnCoords() {
-      target_city = ipinfo.getCoords().city;
+    ipinfo.get().then(function returnCoords(coords) {
+      target_city = coords.city;
       weather.on(target_city);
     });
 } else {
