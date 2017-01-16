@@ -25,11 +25,10 @@ function IPInfo() {
     function parseData(resolve, data) {
         data = JSON.parse(data);
         resolve(data);
-
-        return;
     }
 
     return { get: get };
 }
 
-module.exports = { ipinfo: new IPInfo() };
+module.exports = new IPInfo();
+
