@@ -31,4 +31,3 @@ function IPInfo() {
 }
 
 module.exports = new IPInfo();
-
