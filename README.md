@@ -11,7 +11,7 @@ Then type:
 npm install howsweather -g
 ```
 
-Here you are! You're to use **howsweather**.
+Here you are! You're ready to use **howsweather**.
 
 ## Getting Started
 ![Screenshot](http://i.imgur.com/UG40JgX.png "Screenshot")
