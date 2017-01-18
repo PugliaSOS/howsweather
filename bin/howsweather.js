@@ -15,9 +15,20 @@ if (process.argv.length < 3 && target_city === null) {
     console.log('Retrieving your location by your IP address..');
 
     ipinfo.get().then(function returnCoords(coords) {
-      target_city = coords.city;
-      weather.on(target_city);
+        target_city = coords.city;
+        console.log(`Retrieving weather for '${target_city.toUpperCase()}'..`);
+        weather.on(target_city, function(data) {
+            let suffix = `°${weather.scale}`;
+
+            console.log(`Min: ${data.min}${suffix}, Max: ${data.max}${suffix} | ${data.weatherStatus}`);
+        });
     });
 } else {
-    weather.on(process.argv[2] || target_city);
+    target_city = process.argv[2] || target_city;
+    console.log(`Retrieving weather for '${target_city.toUpperCase()}'..`);
+    weather.on(target_city, function(data) {
+
+        let suffix = `°${weather.scale}`;
+        console.log(`Min: ${data.min}${suffix}, Max: ${data.max}${suffix} | ${data.weatherStatus}`);
+    });
 }

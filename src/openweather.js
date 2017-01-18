@@ -32,31 +32,24 @@ OpenWeather.prototype.setScale = function(given_scale) {
 }
 
 /* Get weather for a specific city. */
-OpenWeather.prototype.on = function(city) {
+OpenWeather.prototype.on = function(city, cb) {
     const self = this;
     const request_url = this.composeURL(city);
 
     http.get(request_url, function (res) {
-        console.log(`Retrieving weather for '${city.toUpperCase()}'..`);
-
-        res.on('data', self.formatWeather.bind(self));
+        res.on('data', self.formatWeather.bind(self, cb));
         res.on('error', console.log);
     });
 }
 
-OpenWeather.prototype.formatWeather = function(data) {
-    let suffix = `°${this.scale}`;
-
+OpenWeather.prototype.formatWeather = function(cb, data) {
     data =  JSON.parse(data);
 
-    var weatherStatus = data.weather[0].main;
-    var temp = {
+    cb({
         min: this.convertToUserScale(data.main.temp_min),
-        max: this.convertToUserScale(data.main.temp_max)
-    };
-
-    console.log(`Min: ${temp.min}${suffix}, Max: ${temp.max}${suffix} | ${weatherStatus}`);
-    return;
+        max: this.convertToUserScale(data.main.temp_max),
+        weatherStatus: data.weather[0].main
+    });
 }
 
 OpenWeather.prototype.convertToUserScale = function(temperature) {
