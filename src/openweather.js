@@ -14,8 +14,8 @@ const endpoint = 'http://api.openweathermap.org/data/2.5/weather?q={city}&apikey
  *     weather.on('New York');
  */
 function OpenWeather(api_key, scale) {
-    this.api_key = api_key;
-    this.scale = scale;
+    this.setAPI(api_key);
+    this.setScale(scale);
     return this;
 }
 
@@ -25,7 +25,7 @@ OpenWeather.prototype.setAPI = function(key) {
 
 OpenWeather.prototype.setScale = function(given_scale) {
     if (!['C', 'F', 'K'].includes(given_scale)) {
-        abort("Invalid scale for 'setScale' , expected: C, F or K.");
+        throw new Error("Invalid scale for 'setScale' , expected: C, F or K.");
     }
 
     this.scale = given_scale;
@@ -47,18 +47,13 @@ OpenWeather.prototype.on = function(city) {
 OpenWeather.prototype.formatWeather = function(data) {
     let suffix = `°${this.scale}`;
 
-    try {
-        data =  JSON.parse(data);
+    data =  JSON.parse(data);
 
-        var weatherStatus = data.weather[0].main;
-        var temp = {
-            min: this.convertToUserScale(data.main.temp_min),
-            max: this.convertToUserScale(data.main.temp_max)
-        };
-    } catch(error) {
-        console.log(error);
-        abort('An error occured: check your .howsweather file');
-    }
+    var weatherStatus = data.weather[0].main;
+    var temp = {
+        min: this.convertToUserScale(data.main.temp_min),
+        max: this.convertToUserScale(data.main.temp_max)
+    };
 
     console.log(`Min: ${temp.min}${suffix}, Max: ${temp.max}${suffix} | ${weatherStatus}`);
     return;
@@ -82,11 +77,6 @@ OpenWeather.prototype.composeURL = function(city) {
     return endpoint
         .replace('{city}', city)
         .replace('{api}', this.api_key);
-}
-
-function abort(message) {
-    console.log(message);
-    process.exit(1);
 }
 
 module.exports = OpenWeather;
