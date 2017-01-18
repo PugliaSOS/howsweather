@@ -1,33 +1,36 @@
 #!/usr/bin/env node
 'use strict';
 
-let config = require('./../src/configuration.js');
-let ipinfo = require('./../src/ipinfo.js');
+const config = require('./../src/configuration.js');
+const ipinfo = require('./../src/ipinfo.js');
 const OpenWeather = require('./../src/openweather.js');
-let target_city = config.city || null;
-
-let weather = new OpenWeather(config.api_key, config.scale || 'K');
 
 console.log('howsweather | visualize weather, from console');
 
-// Check if the target city was given to runtime.
-if (process.argv.length < 3 && target_city === null) {
-    console.log('Retrieving your location by your IP address..');
+let weather = new OpenWeather(config.api_key, config.scale || 'K');
 
-    ipinfo.get().then(function returnCoords(coords) {
-        target_city = coords.city;
-        console.log(`Retrieving weather for '${target_city.toUpperCase()}'..`);
-        weather.on(target_city, function(data) {
-            let suffix = `°${weather.scale}`;
-
-            console.log(`Min: ${data.min}${suffix}, Max: ${data.max}${suffix} | ${data.weatherStatus}`);
-        });
-    });
+// Get city based on either configs or inputs
+let target_city;
+if (process.argv.length >= 3) {
+    target_city = process.argv[2];
 } else {
-    target_city = process.argv[2] || target_city;
-    console.log(`Retrieving weather for '${target_city.toUpperCase()}'..`);
-    weather.on(target_city, function(data) {
+    target_city = config.city;
+}
 
+// Get city from ipinfo if not set
+if (target_city) {
+    getWeather(city);
+} else {
+    console.log('Retrieving your location by your IP address...');
+    ipinfo.get().then(function returnCoords(coords) {
+        getWeather(coords.city);
+    });
+}
+
+// Get and display weather
+function getWeather(city) {
+    console.log(`Retrieving weather for '${target_city.toUpperCase()}'...`);
+    weather.on(city, function(data) {
         let suffix = `°${weather.scale}`;
         console.log(`Min: ${data.min}${suffix}, Max: ${data.max}${suffix} | ${data.weatherStatus}`);
     });
