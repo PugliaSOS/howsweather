@@ -5,10 +5,10 @@ let config = require('./../src/configuration.js');
 let ipinfo = require('./../src/ipinfo.js');
 
 let weather = require('./../src/openweatherapi.js');
-let target_city = config.options.city || null;
+let target_city = config.city || null;
 
-weather.setAPI(config.options.api_key);
-weather.setScale(config.options.scale || 'K');
+weather.setAPI(config.api_key);
+weather.setScale(config.scale || 'K');
 
 console.log('howsweather | visualize weather, from console');
 
