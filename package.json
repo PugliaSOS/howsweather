@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/PugliaSOS/howsweather.git"
   },
+  "engines": {
+    "node": ">= 6.3.1"
+  },
   "bin": {
     "howsweather": "bin/howsweather.js"
   },
