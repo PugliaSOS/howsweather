@@ -1,8 +1,7 @@
 // Read configuration options by a JSON file.
-'use strict';
+const fs = require('fs');
 
-let fs = require('fs');
-let path = require('path');
+const path = require('path');
 
 const HOME_PATH = process.env.HOME || process.env.USERPROFILE;
 const CONFIG_PATH = path.join(HOME_PATH, '.howsweather');
