@@ -3,7 +3,7 @@ A simple Node.js script that displays weather on terminal.
 
 ## Installation
 
-Make sure you've Node.js and `npm` installed on your system.
+Make sure you've Node.js `>= 6.3.1` and `npm` installed on your system.
 
 Then type:
 
