@@ -1,5 +1,6 @@
 # howsweather
 [![Build Status](https://travis-ci.org/PugliaSOS/howsweather.svg?branch=master)](https://travis-ci.org/PugliaSOS/howsweather)
+[![codecov](https://codecov.io/gh/PugliaSOS/howsweather/branch/master/graph/badge.svg)](https://codecov.io/gh/PugliaSOS/howsweather)
 
 A simple Node.js script that displays weather on terminal.
 
