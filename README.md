@@ -28,7 +28,6 @@ So open your favourite text editor and type:
 ```json
 {
   "city": "YOURCITY",
-  "scale": "C",
   "api_key": "YOURAPIKEY"
 }
 ```
@@ -40,13 +39,14 @@ You can get an API key at [OpenWeatherMap](https://openweathermap.org/api).
 #### Scales
 
 _howsweather_ allows you to show temperatures in the three main scales.
-By default, it uses the Kelvin scale.
+By default, it uses your position in order to understand what scale use.
 
 You can change this behavior specifying a `scale` option in your 
-configuration file, the two possible values are:
+configuration file, there are three possible values:
 
 - `C` for Celsius scale
 - `F` for Fahrenheit scale
+- `K` for Kelvin scale
 
 ### See weather stats
 
