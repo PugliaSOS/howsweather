@@ -11,7 +11,7 @@ describe('Utilities', function () {
     });
   });
 
-  describe('#appendEmoji', function () {
+  describe('#appendEmoji(Object)', function () {
     const getEmoji = $.appendEmoji({ censored: 'X', smile: ':)' });
 
     it('should append the right emoji to its keyword', function () {
@@ -20,6 +20,15 @@ describe('Utilities', function () {
 
     it('should silently continue if no emoji is found', function () {
       expect(getEmoji('Unknown')).to.equal(' Unknown');
+    });
+  });
+
+  describe('#formatWeather(Object, String, String)', function () {
+    it('should format weather data following a certain schema', function () {
+      const fake_temperature = { min: '2', max: '3'};
+      const expected = 'MIN 2°C, MAX 3°C | Rain';
+
+      expect($.formatWeather(fake_temperature, 'C', 'Rain')).to.equal(expected);
     });
   });
 });

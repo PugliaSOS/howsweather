@@ -37,4 +37,15 @@ const appendEmoji = function (emoji, keyword) {
   }
 };
 
-module.exports = { findCountryScale, appendEmoji };
+/*
+ * Returns information about weather in a human-readable way:
+ * ```
+ *  MIN 2°C, MAX 5°C | Clouds
+ * ```
+ */
+const formatWeather = function (data, scale, status) {
+  const suffix = '°'.concat(scale);
+  return `MIN ${data.min.concat(suffix)}, MAX ${data.max.concat(suffix)} | ${status}`;
+};
+
+module.exports = { findCountryScale, appendEmoji, formatWeather };

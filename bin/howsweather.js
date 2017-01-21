@@ -2,43 +2,47 @@
 
 const defaults = require('./../src/configuration.js');
 
-const ipinfo = require('./../src/ipinfo.js');
+const emojis = require('./../src/emoji.js');
 
-const OpenWeather = require('./../src/openweather.js');
+const IPInfo = require('./../src/ipinfo.js');
 
-const emoji = require('./../src/emoji.js');
+const $ = require('./../src/utilities.js');
 
-const findCountryScale = function (country) {
-  if (['US', 'BS', 'BZ', 'KY', 'PW'].includes(country)) {
-    return 'F';
+const appendWeatherEmoji = $.appendEmoji(emojis);
+
+/*
+ * === Impure functions ===
+ * Fetch data about user's position and merge found 
+ * information with the default ones in the configuration file.
+ */
+const fetchCity = function () {
+  return process.argv[2] || defaults.city;
+};
+
+const checkForAPIKey = function () {
+  if (defaults.api_key === undefined) {
+    throw new Error('You should specify an API key in .howsweather');
   }
-
-  return 'C';
 };
 
-const showGraphicalWeather = function (status) {
-  const weatherEmoji = emoji[status.toLowerCase()] || '';
-  return weatherEmoji.concat(' ', status);
-};
+IPInfo.get().then((coords) => {
+  const OPTIONS = {
+    city: fetchCity() || coords.city,
+    scale: defaults.scale || $.findCountryScale(coords.country),
+  };
 
-console.log('howsweather | visualize weather, from console');
-const targetCity = process.argv[2] || defaults.city;
-
-ipinfo.get().then((coords) => {
-  const geoScale = findCountryScale(coords.country);
-  const weather = new OpenWeather(defaults.api_key, defaults.scale || geoScale);
-
-  getWeather(targetCity || coords.city, weather);
+  checkForAPIKey();
+  getWeather(defaults.api_key, OPTIONS.city, OPTIONS.scale);
 });
 
-// Get and display weather
-function getWeather(city, weather) {
+function getWeather(api_key, city, scale) {
+  const OpenWeather = require('./../src/openweather.js');
+  const weather = new OpenWeather(api_key, scale);
+
   console.log(`Retrieving weather for '${city.toUpperCase()}'...`);
 
   weather.on(city, (data) => {
-    const suffix = `°${weather.scale}`;
-    const graphic = showGraphicalWeather(data.weatherStatus);
-
-    console.log(`Min: ${data.min}${suffix}, Max: ${data.max}${suffix} | ${graphic}`);
+    const status = appendWeatherEmoji(data.weatherStatus);
+    console.log($.formatWeather(data, weather.scale, status));
   });
 }
