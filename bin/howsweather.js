@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const config = require('./../src/configuration.js');
+const defaults = require('./../src/configuration.js');
 
 const ipinfo = require('./../src/ipinfo.js');
 
@@ -8,36 +8,31 @@ const OpenWeather = require('./../src/openweather.js');
 
 const emoji = require('./../src/emoji.js');
 
-const weather = new OpenWeather(config.api_key, config.scale || 'K');
+const findCountryScale = function (country) {
+  if (['US', 'BS', 'BZ', 'KY', 'PW'].includes(country)) {
+    return 'F';
+  }
 
-// Get city based on either configs or inputs
-let targetCity;
-console.log('howsweather | visualize weather, from console');
-
-if (process.argv.length >= 3) {
-  targetCity = process.argv[2];
-} else {
-  targetCity = config.city;
-}
-
-// Get city from IPInfo if not set
-if (targetCity) {
-  getWeather(targetCity);
-} else {
-  console.log('Retrieving your location by your IP address...');
-
-  ipinfo.get().then((coords) => {
-    getWeather(coords.city);
-  });
-}
+  return 'C';
+};
 
 const showGraphicalWeather = function (status) {
   const weatherEmoji = emoji[status.toLowerCase()] || '';
   return weatherEmoji.concat(' ', status);
 };
 
+console.log('howsweather | visualize weather, from console');
+const targetCity = process.argv[2] || defaults.city;
+
+ipinfo.get().then((coords) => {
+  const geoScale = findCountryScale(coords.country);
+  const weather = new OpenWeather(defaults.api_key, defaults.scale || geoScale);
+
+  getWeather(targetCity || coords.city, weather);
+});
+
 // Get and display weather
-function getWeather(city) {
+function getWeather(city, weather) {
   console.log(`Retrieving weather for '${city.toUpperCase()}'...`);
 
   weather.on(city, (data) => {
