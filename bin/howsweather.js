@@ -6,6 +6,8 @@ const ipinfo = require('./../src/ipinfo.js');
 
 const OpenWeather = require('./../src/openweather.js');
 
+const emoji = require('./../src/emoji.js');
+
 const weather = new OpenWeather(config.api_key, config.scale || 'K');
 
 // Get city based on either configs or inputs
@@ -29,12 +31,19 @@ if (targetCity) {
   });
 }
 
+const showGraphicalWeather = function (status) {
+  const weatherEmoji = emoji[status.toLowerCase()] || '';
+  return weatherEmoji.concat(' ', status);
+};
+
 // Get and display weather
 function getWeather(city) {
   console.log(`Retrieving weather for '${city.toUpperCase()}'...`);
 
   weather.on(city, (data) => {
     const suffix = `°${weather.scale}`;
-    console.log(`Min: ${data.min}${suffix}, Max: ${data.max}${suffix} | ${data.weatherStatus}`);
+    const graphic = showGraphicalWeather(data.weatherStatus);
+
+    console.log(`Min: ${data.min}${suffix}, Max: ${data.max}${suffix} | ${graphic}`);
   });
 }
