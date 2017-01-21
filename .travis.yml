@@ -3,6 +3,7 @@ install:
   - npm install -g codecov
   - npm install -g istanbul
   - npm install -g mocha
+  - npm install -g chai
 script:
   - istanbul cover mocha --report lcovonly -- -R spec
   - codecov
