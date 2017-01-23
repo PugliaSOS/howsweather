@@ -6,12 +6,12 @@
  * ```
  * findCountryScale('IT') //=> C
  * findCountryScale('US') //=> F
- * ``` 
+ * ```
  */
-const findCountryScale = function (country) {
-  const target_country = country.toLowerCase();
+const findCountryScale = (country) => {
+  const targetCountry = country.toLowerCase();
 
-  if (['us', 'bs', 'bz', 'ky', 'pw'].includes(target_country)) {
+  if (['us', 'bs', 'bz', 'ky', 'pw'].includes(targetCountry)) {
     return 'F';
   }
 
@@ -28,13 +28,11 @@ const findCountryScale = function (country) {
  * getWeatherEmoji('Rain');
  * ```
  */
-const appendEmoji = function (emoji, keyword) {
-  return function (keyword) {
-    const target_keyword = keyword.toLowerCase();
-    const target_emoji = emoji[target_keyword] || '';
+const appendEmoji = emoji => (keyword) => {
+  const targetKeyword = keyword.toLowerCase();
+  const targetEmoji = emoji[targetKeyword] || '';
 
-    return target_emoji.concat(' ', keyword);
-  }
+  return targetEmoji.concat(' ', keyword);
 };
 
 /*
@@ -43,7 +41,7 @@ const appendEmoji = function (emoji, keyword) {
  *  MIN 2°C, MAX 5°C | Clouds
  * ```
  */
-const formatWeather = function (data, scale, status) {
+const formatWeather = (data, scale, status) => {
   const suffix = '°'.concat(scale);
   return `MIN ${data.min.concat(suffix)}, MAX ${data.max.concat(suffix)} | ${status}`;
 };

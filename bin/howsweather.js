@@ -1,25 +1,21 @@
 #!/usr/bin/env node
 
 const defaults = require('./../src/configuration.js');
-
 const emojis = require('./../src/emoji.js');
-
 const IPInfo = require('./../src/ipinfo.js');
-
 const $ = require('./../src/utilities.js');
+const OpenWeather = require('./../src/openweather.js');
 
 const appendWeatherEmoji = $.appendEmoji(emojis);
 
 /*
  * === Impure functions ===
- * Fetch data about user's position and merge found 
+ * Fetch data about user's position and merge found
  * information with the default ones in the configuration file.
  */
-const fetchCity = function () {
-  return process.argv[2] || defaults.city;
-};
+const fetchCity = () => process.argv[2] || defaults.city;
 
-const checkForAPIKey = function () {
+const checkForAPIKey = () => {
   if (defaults.api_key === undefined) {
     throw new Error('You should specify an API key in .howsweather');
   }
@@ -35,9 +31,8 @@ IPInfo.get().then((coords) => {
   getWeather(defaults.api_key, OPTIONS.city, OPTIONS.scale);
 });
 
-function getWeather(api_key, city, scale) {
-  const OpenWeather = require('./../src/openweather.js');
-  const weather = new OpenWeather(api_key, scale);
+function getWeather(apiKey, city, scale) {
+  const weather = new OpenWeather(apiKey, scale);
 
   console.log(`Retrieving weather for '${city.toUpperCase()}'...`);
 
