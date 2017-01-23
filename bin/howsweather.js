@@ -1,40 +1,43 @@
 #!/usr/bin/env node
 
-const config = require('./../src/configuration.js');
-
-const ipinfo = require('./../src/ipinfo.js');
-
+const defaults = require('./../src/configuration.js');
+const emojis = require('./../src/emoji.js');
+const IPInfo = require('./../src/ipinfo.js');
+const $ = require('./../src/utilities.js');
 const OpenWeather = require('./../src/openweather.js');
 
-const weather = new OpenWeather(config.api_key, config.scale || 'K');
+const appendWeatherEmoji = $.appendEmoji(emojis);
 
-// Get city based on either configs or inputs
-let targetCity;
-console.log('howsweather | visualize weather, from console');
+/*
+ * === Impure functions ===
+ * Fetch data about user's position and merge found
+ * information with the default ones in the configuration file.
+ */
+const fetchCity = () => process.argv[2] || defaults.city;
 
-if (process.argv.length >= 3) {
-  targetCity = process.argv[2];
-} else {
-  targetCity = config.city;
-}
+const getWeather = (apiKey, city, scale) => {
+  const weather = new OpenWeather(apiKey, scale);
 
-// Get city from IPInfo if not set
-if (targetCity) {
-  getWeather(targetCity);
-} else {
-  console.log('Retrieving your location by your IP address...');
-
-  ipinfo.get().then((coords) => {
-    getWeather(coords.city);
-  });
-}
-
-// Get and display weather
-function getWeather(city) {
   console.log(`Retrieving weather for '${city.toUpperCase()}'...`);
 
   weather.on(city, (data) => {
-    const suffix = `°${weather.scale}`;
-    console.log(`Min: ${data.min}${suffix}, Max: ${data.max}${suffix} | ${data.weatherStatus}`);
+    const status = appendWeatherEmoji(data.weatherStatus);
+    console.log($.formatWeather(data, weather.scale, status));
   });
-}
+};
+
+const checkForAPIKey = () => {
+  if (defaults.api_key === undefined) {
+    throw new Error('You should specify an API key in .howsweather');
+  }
+};
+
+IPInfo.get().then((coords) => {
+  const OPTIONS = {
+    city: fetchCity() || coords.city,
+    scale: defaults.scale || $.findCountryScale(coords.country),
+  };
+
+  checkForAPIKey();
+  getWeather(defaults.api_key, OPTIONS.city, OPTIONS.scale);
+});
