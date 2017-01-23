@@ -15,6 +15,17 @@ const appendWeatherEmoji = $.appendEmoji(emojis);
  */
 const fetchCity = () => process.argv[2] || defaults.city;
 
+const getWeather = (apiKey, city, scale) => {
+  const weather = new OpenWeather(apiKey, scale);
+
+  console.log(`Retrieving weather for '${city.toUpperCase()}'...`);
+
+  weather.on(city, (data) => {
+    const status = appendWeatherEmoji(data.weatherStatus);
+    console.log($.formatWeather(data, weather.scale, status));
+  });
+};
+
 const checkForAPIKey = () => {
   if (defaults.api_key === undefined) {
     throw new Error('You should specify an API key in .howsweather');
@@ -30,14 +41,3 @@ IPInfo.get().then((coords) => {
   checkForAPIKey();
   getWeather(defaults.api_key, OPTIONS.city, OPTIONS.scale);
 });
-
-function getWeather(apiKey, city, scale) {
-  const weather = new OpenWeather(apiKey, scale);
-
-  console.log(`Retrieving weather for '${city.toUpperCase()}'...`);
-
-  weather.on(city, (data) => {
-    const status = appendWeatherEmoji(data.weatherStatus);
-    console.log($.formatWeather(data, weather.scale, status));
-  });
-}

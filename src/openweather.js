@@ -42,8 +42,8 @@ OpenWeather.prototype.on = function on(city, cb) {
   });
 };
 
-OpenWeather.prototype.formatWeather = function formatWeather(cb, data) {
-  data = JSON.parse(data);
+OpenWeather.prototype.formatWeather = function formatWeather(cb, rawData) {
+  const data = JSON.parse(rawData);
 
   cb({
     min: this.convertToUserScale(data.main.temp_min),
@@ -53,16 +53,20 @@ OpenWeather.prototype.formatWeather = function formatWeather(cb, data) {
 };
 
 OpenWeather.prototype.convertToUserScale = function convertToUserScale(temperature) {
+  let convertedTemperature;
+
   switch (this.scale) {
     case 'C':
-      temperature -= 273.15;
+      convertedTemperature = temperature - 273.15;
       break;
     case 'F':
-      temperature = (temperature * (9 / 5)) - 459.67;
+      convertedTemperature = (temperature * (9 / 5)) - 459.67;
       break;
+    default:
+      return temperature;
   }
 
-  return temperature.toFixed(2);
+  return convertedTemperature.toFixed(2);
 };
 
 /* Compose the request's URL attaching necessary information. */

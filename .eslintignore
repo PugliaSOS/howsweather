@@ -1,4 +1,4 @@
-test/*
+*.spec.js
 *.yml
 *.json
 LICENSE
