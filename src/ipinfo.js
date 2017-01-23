@@ -13,12 +13,10 @@ const http = require('http');
 
 const ENDPOINT = 'http://ipinfo.io';
 
-function parseData(resolve, data) {
-  resolve(JSON.parse(data));
-}
+const parseData = (resolve, data) => resolve(JSON.parse(data));
 
 function get() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     http.get(ENDPOINT, (response) => {
       response.on('data', parseData.bind(this, resolve));
     });
