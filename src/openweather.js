@@ -63,7 +63,7 @@ OpenWeather.prototype.convertToUserScale = function convertToUserScale(temperatu
       convertedTemperature = (temperature * (9 / 5)) - 459.67;
       break;
     default:
-      return temperature;
+      convertedTemperature = temperature;
   }
 
   return convertedTemperature.toFixed(2);
