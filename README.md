@@ -17,7 +17,7 @@ npm install howsweather -g
 Here you are! You're ready to use **howsweather**.
 
 ## Getting Started
-![Screenshot](http://i.imgur.com/UG40JgX.png "Screenshot")
+![Screenshot](http://i.imgur.com/GO0K4D6.png "Screenshot")
 
 ### Configure the necessary
 
