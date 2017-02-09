@@ -10,5 +10,5 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 script:
   - eslint */*.js
-  - istanbul cover mocha && codecov
+  - istanbul cover npm run test && codecov
 
