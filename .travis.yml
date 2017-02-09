@@ -3,13 +3,12 @@ install:
   - npm install
   - npm install -g codecov
   - npm install -g istanbul
-  - npm install -g eslint
 node_js:
   - 'node'
   - '6'
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 script:
-  - node_modules/eslint/bin/eslint.js */*.js
-  - istanbul cover node_modules/mocha/bin/_mocha && codecov
+  - eslint */*.js
+  - istanbul cover mocha && codecov
 
