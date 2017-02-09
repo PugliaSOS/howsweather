@@ -7,7 +7,6 @@ const http = require('http');
  *
  *   @example
  *     const weather = new OpenWeather('YOUR_API_KEY')
- *     weather.setScale('C');
  *     weather.on('New York');
  */
 class OpenWeather {
