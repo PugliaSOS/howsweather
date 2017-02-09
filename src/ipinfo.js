@@ -11,16 +11,22 @@
  */
 const http = require('http');
 
-const ENDPOINT = 'http://ipinfo.io';
+class IPInfo {
+  constructor() {
+    this.apiURL = 'http://ipinfo.io';
+  }
 
-const parseData = (resolve, data) => resolve(JSON.parse(data));
-
-function get() {
-  return new Promise((resolve) => {
-    http.get(ENDPOINT, (response) => {
-      response.on('data', parseData.bind(this, resolve));
+  get() {
+    return new Promise((resolve) => {
+      http.get(this.apiURL, (response) => {
+        response.on('data', this.parseData.bind(this, resolve));
+      });
     });
-  });
+  }
+
+  parseData(resolve, data) {
+    resolve(JSON.parse(data));
+  }
 }
 
-exports.get = get;
+module.exports = IPInfo;
