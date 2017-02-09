@@ -7,6 +7,7 @@ const $ = require('./../src/utilities.js');
 const OpenWeather = require('./../src/openweather.js');
 
 const appendWeatherEmoji = $.appendEmoji(emojis);
+const ipinfo = new IPInfo();
 
 /*
  * Fetch data about user's position and merge found
@@ -33,7 +34,7 @@ const checkForAPIKey = () => {
   }
 };
 
-IPInfo.get().then((coords) => {
+ipinfo.get().then((coords) => {
   const OPTIONS = {
     city: fetchCity() || coords.city,
     scale: defaults.scale || $.findCountryScale(coords.country),

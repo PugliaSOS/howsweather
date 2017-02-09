@@ -1,11 +1,10 @@
 const expect = require('chai').expect;
 
-const ipinfo = require('./../src/ipinfo');
+const IPInfo = require('./../src/ipinfo');
 
 describe('IPInfo', () => {
-  describe ('#get()', () => {
-    it('should returns a Promise', () => {
-      expect(ipinfo.get().toString()).to.equal('[object Promise]');
-    });
+  it('get should returns a Promise object', () => {
+    const ipinfo = new IPInfo();
+    expect(ipinfo.get().toString()).to.equal('[object Promise]');
   });
 });
