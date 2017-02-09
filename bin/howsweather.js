@@ -9,12 +9,12 @@ const OpenWeather = require('./../src/openweather.js');
 const appendWeatherEmoji = $.appendEmoji(emojis);
 
 /*
- * === Impure functions ===
  * Fetch data about user's position and merge found
  * information with the default ones in the configuration file.
  */
 const fetchCity = () => process.argv[2] || defaults.city;
 
+// Get weather for a specific city.
 const getWeather = (apiKey, city, scale) => {
   const weather = new OpenWeather(apiKey, scale);
 
@@ -26,6 +26,7 @@ const getWeather = (apiKey, city, scale) => {
   });
 };
 
+// Check for an API key.
 const checkForAPIKey = () => {
   if (defaults.api_key === undefined) {
     throw new Error('You should specify an API key in .howsweather');
