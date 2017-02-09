@@ -22,7 +22,7 @@ const getWeather = (apiKey, city, scale) => {
 
   weather.on(city, (data) => {
     const status = appendWeatherEmoji(data.weatherStatus);
-    console.log($.formatWeather(data, weather.scale, status));
+    console.log($.formatWeather(data, scale, status));
   });
 };
 
